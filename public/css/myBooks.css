@@ -1,0 +1,237 @@
+/* Books Started */
+
+body {
+    background: linear-gradient(to bottom, #dd2476, #ff512f);
+}
+
+.tabs_content {
+    margin-top: 2vmin;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 13px 0 0;
+}
+.tabs_book > li {
+    display: inline-block;
+
+    padding: 8px 20px;
+    margin-left: 10px;
+    border-radius: 30px;
+}
+
+.tabs_book > li.active_tab_book {
+    background-color: #dd2476;
+}
+
+.tabs_book > li > a {
+    text-decoration: none;
+    color: white;
+}
+
+.card-img-top {
+    height: 250px;
+}
+
+.fa-star,
+.fa-star-half-alt {
+    color: orange;
+}
+
+.fa-star,
+.fa-star-half-alt,
+.fa-heart,
+.fa-search,
+#rate,
+#latest,
+.close_form {
+    cursor: pointer;
+}
+.fa-search {
+    color: white;
+    text-shadow: 3px 3px 10px black;
+}
+.fa-search:hover {
+    color: orange;
+}
+
+.heart-active {
+    color: red;
+    animation: animate_heart 0.7s ease-in-out;
+}
+@keyframes animate_heart {
+    0% {
+        transform: scale(1.5);
+        font-size: 30px;
+    }
+    50% {
+        transform: scale(0.8);
+        text-shadow: 1px 1px 10px black;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.card {
+    margin: 4%;
+    animation: animate_cards 2.4s;
+}
+
+@keyframes animate_cards {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.search {
+    display: none;
+}
+input[type="search"] {
+    padding: 7px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid black;
+}
+input[type="search"]:focus {
+    background: orange;
+    color: white;
+    transform: translate(10px, -10px);
+    transition: all 1s;
+    box-shadow: 3px 3px 10px black;
+}
+
+#rate,
+#latest {
+    padding: 7px 5px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px orange solid;
+}
+
+.order > span {
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.card .card-img-top {
+    transition: all 1s;
+}
+
+.card:hover .card-img-top {
+    transform: rotate(20deg) scale(1.1);
+    opacity: 0.5;
+}
+
+.card > div {
+    overflow: hidden;
+}
+.category li:hover {
+    background: linear-gradient(to left, #dd2476, #ff512f);
+    cursor: pointer;
+    box-shadow: 3px 3px 10px black;
+    color: white;
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120vh;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: none;
+}
+
+.lease_form {
+    position: absolute;
+    top: -50%;
+    left: 40%;
+    width: 40%;
+    height: 300px;
+    background: linear-gradient(to left, #dd2476, #ff512f);
+    padding: 50px;
+    border-radius: 103px 102px 149px 0px;
+    -moz-border-radius: 103px 102px 149px 0px;
+    -webkit-border-radius: 103px 102px 149px 0px;
+    border: 12px solid white;
+    z-index: 2;
+    color: white;
+}
+.lease_btn {
+    border-radius: 40px;
+}
+
+.lease_form .close_form {
+    padding: 10px;
+    transform: rotate(90deg);
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background: orange;
+    font: bold;
+}
+
+/* Book Details Started */
+.book_details .book_image {
+    width: 100%;
+    height: 300px;
+}
+
+/* Slider Started */
+.slider {
+    color: white;
+}
+.slider > h1 {
+    padding: 1% 2%;
+    background-color: white;
+    text-shadow: 1px 1px 1px black, -1px -1px 1px black;
+    color: #dd2476;
+    box-shadow: 5px 5px 10px black;
+    border-radius: 0 70px;
+}
+.slider .slider_image {
+    height: 300px;
+}
+/* start footer */
+footer {
+    margin-top: 150px;
+    padding: 15px;
+    background-color: black;
+    color: white;
+    position: relative;
+}
+footer p {
+    font-size: 18px;
+}
+footer p span {
+    margin-top: 50px;
+    color: #dd2476;
+    text-shadow: 1px 1px 10px white;
+    font-size: 26px;
+}
+
+footer::after {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 50%;
+    height: 100px;
+    background: black;
+    border-radius: 0 200% 0 0;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: 0;
+    width: 50%;
+    height: 100px;
+    background: black;
+    border-radius: 200% 0 0 0;
+}
