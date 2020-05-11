@@ -95,19 +95,17 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-md-12 mt-3">
-              <div class="row">
+             @foreach( $books as $book)
+            <div class="container-fluid column">
+              <div class="row flex-row flex-nowrap">
                 <div class="col-md-4">
-                  <div class="card">
+                  <div class="card card-block">
                     <div>
                       <img
                         class="card-img-top"
                         src="images/Angular.png"
                         alt="Card image cap"
                       />
-                    </div>
-                    <div class="card-body">
                       <div>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -115,14 +113,17 @@
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                       </div>
-                      <h5 class="card-title"> <a href="{{route('books.show',1)}}">Angular Book</a> </h5>
+                    </div>
+                    
+                      <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a> </h5>
                       <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
+                        {{ $book-> description}}
                       </p>
+                       <div class="card">
+                     
                       <div class="mb-3">
                         <span class="badge badge-pill badge-primary p-2 mr-4">
-                          <span class="count_of_book">2</span>
+                          <span class="count_of_book">{{ $book-> amount }}</span>
                           copies available
                         </span>
                         <i class="fas fa-heart fa-2x"></i>
@@ -130,85 +131,18 @@
                       <a href="#" class="w-100 rounded-pill lease_btn btn btn-success"
                         >Lease</a
                       >
+                      
                     </div>
                   </div>
+                 
                 </div>
-                <div class="col-md-4">
-                  <div class="card">
-                    <div>
-                      <img
-                        class="card-img-top"
-                        src="images/javascript.jfif"
-                        alt="Card image cap"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <div>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                      </div>
-                      <h5 class="card-title"> <a href="{{route('books.show',1)}}">javaScript Book</a> </h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                      <div class="mb-3">
-                        <span class="badge badge-pill badge-primary p-2 mr-4">
-                          <span class="count_of_book">1</span>
-                          copies available
-                        </span>
-                        <i class="fas fa-heart fa-2x heart-active"></i>
-                      </div>
-                      <a href="#" class="w-100  rounded-pill lease_btn btn btn-success"
-                        >Lease</a
-                      >
-                    </div>
-                  </div>
+                @endforeach
                 </div>
-                <div class="col-md-4">
-                  <div class="card">
-                    <div>
-                      <img
-                        class="card-img-top border"
-                        src="images/python.jpg"
-                        alt="Card image cap"
-                      />
-                    </div>
-                    <div class="card-body">
-                      <div>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                      </div>
-                      <h5 class="card-title"> <a href="{{route('books.show',1)}}">Python title</a> </h5>
-                      <p class="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </p>
-                      <div class="mb-3">
-                        <span class="badge badge-pill badge-danger p-2 mr-4">
-                          <span class="count_of_book"></span>
-                          not available
-                        </span>
-                        <i class="fas fa-heart fa-2x"></i>
-                      </div>
-                      <a href="#" class="w-100 rounded-pill lease_btn btn btn-success"
-                        >Lease</a
-                      >
-                    </div>
-                  </div>
-                </div>
+                {{ $books->links() }}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
     @endsection

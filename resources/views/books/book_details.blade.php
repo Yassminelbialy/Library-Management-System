@@ -10,7 +10,7 @@
       <div class="form-group mt-3">
         <span class="info">Book Price : </span><span>50$</span>
       </div>
-
+       @csrf
       <div class="form-group">
         <input
           type="number"
@@ -47,7 +47,11 @@
             <div class="card">
               <div class="card-body">
                 <i class="fas fa-heart fa-2x float-right"></i>
-                <h5 class="card-title">Book Title</h5>
+                <h5 class="card-title">Book Title : {{ $mybook->title}}</h5>
+                <h5 class="card-title">Book Author : {{ $mybook->author}}</h5>
+                <h5 class="card-title">Book Category : {{ $mybook->cate_id}}</h5>
+                <h5 class="card-title">Price for One Copy : {{ $mybook->price}}</h5>
+                
                 <div class="stars">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -57,18 +61,20 @@
                 </div>
 
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                  <h5>Book Description : {{ $mybook-> description}} </h5>
                 </p>
                 <div class="mb-2">
                   <span class="badge badge-pill badge-primary p-2 mr-4">
-                    <span class="count_of_book">2</span>
-                    copies available
+                    <span class="count_of_book"> {{  $mybook->amount }}</span>
+                      Copies Available
                   </span>
                 </div>
+                @if( $mybook->amount > 0)
                 <a href="#" class="w-100 rounded-pill lease_btn btn btn-success"
-                  >Lease</a
-                >
+                  >Lease</a>
+                @else
+                     <h1 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>  
+              @endif
               </div>
             </div>
           </div>

@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <h2>Welcome : {{ $username }} </h2>
+                    <h2> <a href="/books">See Our Library</a></h2>
                 </div>
             </div>
         </div>

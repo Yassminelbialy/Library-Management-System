@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Book;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -13,7 +15,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('books.mybooks');
+        // $books = \App\Book::select('*')->get();
+        $books= DB::table('books')->paginate(2);
+        return view('books.mybooks', ["books"=>$books]);
     }
 
     /**
@@ -45,7 +49,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        return view('books.book_details');
+        $mybook=Book::findOrFail($id);
+        return view('books.book_details', compact('mybook',$mybook));
 
     }
 
