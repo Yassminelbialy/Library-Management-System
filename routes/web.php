@@ -23,3 +23,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('books','BookController')->middleware('auth');
 
+Route::get('/facebook/redirect', 'SocialAuthController@redirect');
+Route::get('/facebook/callback', 'SocialAuthController@callback');
