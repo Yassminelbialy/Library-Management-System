@@ -14,6 +14,7 @@ class AddDescriptionToBooksTable extends Migration
     public function up()
     {
         Schema::table('books', function (Blueprint $table) {
+            $table->text('description');
             
         });
     }
@@ -26,7 +27,7 @@ class AddDescriptionToBooksTable extends Migration
     public function down()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->text('description');
+            
         });
     }
 }
