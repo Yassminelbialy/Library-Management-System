@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Book;
-use Illuminate\Support\Facades\DB;
 
-class BookController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +13,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        // $books = \App\Book::select('*')->get();
-        $books= DB::table('books')->paginate(2);
-        $categories= DB::table('categories')->paginate(2);
-        return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
+        //
     }
 
     /**
@@ -28,7 +23,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view ('books.create');
+        return view ('categories.create');
     }
 
     /**
@@ -39,15 +34,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //store
-        $book=new book;
-        $book->title=$request->title;
-        $book->amount=$request->amount;
-        $book->author=$request->author;
-        $book->price=$request->price;
-        $book->cate_id=$request->cate_id;
-        $book->description=$request->description;
-        $book->save();
+        //
     }
 
     /**
@@ -58,9 +45,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $mybook=Book::findOrFail($id);
-        return view('books.book_details', compact('mybook',$mybook));
-
+        //
     }
 
     /**

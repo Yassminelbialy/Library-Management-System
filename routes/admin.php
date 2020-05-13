@@ -14,14 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/admin', function () {
+    return "<h1>welcome Admin</h1>";
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('books','BookController')->middleware('auth');
-Route::resource('categories','CategoryController')->middleware('auth');
-Route::get('/facebook/redirect', 'SocialAuthController@redirect');
-Route::get('/facebook/callback', 'SocialAuthController@callback');
