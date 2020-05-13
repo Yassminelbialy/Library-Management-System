@@ -50,6 +50,8 @@ class BookController extends Controller
         $book->description=$request->description;
         $book->book_img=$request->book_img->store('images','public');
         $book->save();
+
+        return redirect('/books');
     }
 
     /**
