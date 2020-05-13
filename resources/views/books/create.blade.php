@@ -6,8 +6,11 @@
          }
      </style>
     <audio class="bell" src="bell.mp3"></audio>
+     <div class="card-header" style="text-align: center;  font: 25px bold;">
+         Add new book
+     </div>
     <div class="container mt-5">
-        {!! Form::open(['route' => 'books.store']) !!}
+        {!! Form::open(['route' => 'books.store','enctype'=>'multipart/form-data']) !!}
         <div class="form-group">
             {!! Form::label('title', 'Book Title', ['class' => 'awesome']); !!}
             {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title....'] ) !!}

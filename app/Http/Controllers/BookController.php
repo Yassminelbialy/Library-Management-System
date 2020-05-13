@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Book;
+use \App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
@@ -37,7 +38,7 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
         //store
         $book=new book;
@@ -47,6 +48,7 @@ class BookController extends Controller
         $book->price=$request->price;
         $book->cate_id=$request->cate_id;
         $book->description=$request->description;
+        $book->book_img=$request->book_img->store('images','public');
         $book->save();
     }
 
