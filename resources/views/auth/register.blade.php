@@ -60,7 +60,31 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="number" class="form-control" name="phone" required >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Admin') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="checkbox" value="1" id="custom7" checked="checked" /> 
+                                <input type="hidden" value="1" id="hdncustom7" name="adminRole" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+
+                            <div class="col-md-6">
+                                <input  type="file" class="form-control" name="userImg" required >
+                            </div>
+                        </div>
+                        
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
