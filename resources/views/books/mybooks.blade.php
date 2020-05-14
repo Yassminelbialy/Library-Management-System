@@ -31,24 +31,15 @@
     </form>
 
     <div class="popup"></div>
-
+    @foreach( $categories as $category)
     <div class="container my_books ">
       <div class="row">
         <div class="col-md-3 category col-sm-12 mt-5 pt-5">
           <ul class="list-group">
-            <li class="list-group-item">Arts</li>
-            <li class="list-group-item">music</li>
-            <li class="list-group-item">kids</li>
-            <li class="list-group-item">bussiness</li>
-            <li class="list-group-item">computers</li>
-            <li class="list-group-item">Arts</li>
-            <li class="list-group-item">music</li>
-            <li class="list-group-item">kids</li>
-            <li class="list-group-item">bussiness</li>
-            <li class="list-group-item">computers</li>
+            <li class="list-group-item">{{ $category->name}}</li>
           </ul>
         </div>
-
+          @endforeach
         <div class="col-md-9 col-sm-12">
           <div class="row">
             <div class="col-md-12 tabs_content">
@@ -103,7 +94,7 @@
                     <div>
                       <img
                         class="card-img-top"
-                        src="images/Angular.png"
+                        src="/images/{{ $book-> book_img}}"
                         alt="Card image cap"
                       />
                       <div>
@@ -114,13 +105,13 @@
                         <i class="far fa-star"></i>
                       </div>
                     </div>
-                    
+
                       <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a> </h5>
                       <p class="card-text">
                         {{ $book-> description}}
                       </p>
                        <div class="card">
-                     
+
                       <div class="mb-3">
                         <span class="badge badge-pill badge-primary p-2 mr-4">
                           <span class="count_of_book">{{ $book-> amount }}</span>
@@ -131,10 +122,10 @@
                       <a href="#" class="w-100 rounded-pill lease_btn btn btn-success"
                         >Lease</a
                       >
-                      
+
                     </div>
                   </div>
-                 
+
                 </div>
                 @endforeach
                 </div>

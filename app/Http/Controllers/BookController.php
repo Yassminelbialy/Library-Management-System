@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Book;
+use \App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\DB;
+use \App\Category;
 
 class BookController extends Controller
 {
@@ -15,9 +17,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        // $books = \App\Book::select('*')->get();
-        $books= DB::table('books')->paginate(2);
-        return view('books.mybooks', ["books"=>$books]);
+        
+        $books= DB::table('books')->paginate(3);
+        $categories= DB::table('categories')->paginate(2);
+        return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
     }
 
     /**
@@ -27,7 +30,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view ('books.create');
     }
 
     /**
@@ -36,9 +39,31 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+        //store
+        $book=new book;
+        $book->title=$request->title;
+        $book->amount=$request->amount;
+        $book->author=$request->author;
+        $book->price=$request->price;
+        $book->cate_id=$request->cate_id;
+        $book->description=$request->description;
+        // first request img then give parameters to store 
+        $book->book_img=$request->book_img->store('images','public');        
+        
+        // upload img to path , assign the img request to real file, then get name as date upload
+        if ($files = $request->file('book_img')) {
+            $destinationPath = 'images/'; 
+            $bookImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $bookImage);
+            $book->book_img=$bookImage;  // assign img to book
+        }
+
+        $book->save();
+
+
+        return redirect('/books');
     }
 
     /**
@@ -49,8 +74,9 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $mybook=Book::findOrFail($id);
-        return view('books.book_details', compact('mybook',$mybook));
+        $mybook = Book::findOrFail($id);
+        $categoryName = Category::findOrFail($mybook->cate_id)->name;
+        return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName]);
 
     }
 
