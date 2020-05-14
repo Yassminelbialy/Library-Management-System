@@ -62,7 +62,10 @@ class BookController extends Controller
 
         $book->save();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9f28231238942e1a0fb99e55ef6d78cb43e335e5
         return redirect('/books');
     }
 
