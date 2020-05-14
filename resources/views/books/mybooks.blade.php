@@ -94,7 +94,7 @@
                     <div>
                       <img
                         class="card-img-top"
-                        src="{{ $book-> book_img}}"
+                        src="/images/{{ $book-> book_img}}"
                         alt="Card image cap"
                       />
                       <div>

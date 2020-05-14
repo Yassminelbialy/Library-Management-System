@@ -49,7 +49,7 @@
                 <i class="fas fa-heart fa-2x float-right"></i>
                 <h5 class="card-title">Book Title : {{ $mybook->title}}</h5>
                 <h5 class="card-title">Book Author : {{ $mybook->author}}</h5>
-                <h5 class="card-title">Book Category : {{ $categoryName }}</h5>
+                <h5 class="card-title">Book Category :  {{ $categoryName }}</h5>
                 <h5 class="card-title">Price for One Copy : {{ $mybook->price}}</h5>
                 
                 <div class="stars">

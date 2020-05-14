@@ -8,7 +8,7 @@ class Book extends Model
 {
     protected $table ='books';
 
-    // public function categories(){
+     // public function categories(){
     //     return $this->belongsTo(Category::class);
     // }
 }
