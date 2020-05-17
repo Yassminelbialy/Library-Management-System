@@ -55,7 +55,7 @@ class BookController extends Controller
         // upload img to path , assign the img request to real file, then get name as date upload
         if ($files = $request->file('book_img')) {
             $destinationPath = 'images/'; 
-            $bookImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $bookImage = $files->getClientOriginalName();
             $files->move($destinationPath, $bookImage);
             $book->book_img=$bookImage;  // assign img to book
         }
