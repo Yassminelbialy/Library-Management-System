@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Maktabaty</title>
+    <title>{{ config('app.name', 'Maktabty') }}</title>
 
     <!-- Scripts -->
 
@@ -36,8 +36,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+            <i class="fas fa-book-reader fa-5x mx-3"></i>
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <span>Maktabaty</span>
+                    <span>Ma</span>ktabty
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -77,6 +78,14 @@
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                <a class="dropdown-item" href="{{ route('profiles.index') }}" onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">
+                                    {{ __('View Profile') }}
+                                </a>
+
+                                <form id="profile-form" action="{{ route('profiles.index') }}" method="GET" style="display: none;">
                                     @csrf
                                 </form>
                             </div>
