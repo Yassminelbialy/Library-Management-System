@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.nav')
 @section('content')
      <style>
          label{
@@ -10,7 +10,7 @@
          Add new book
      </div>
     <div class="container mt-5">
-        {!! Form::open(['route' => 'books.store','enctype'=>'multipart/form-data']) !!}
+        {!! Form::open(['route' => 'adminBooks.store','enctype'=>'multipart/form-data']) !!}
         <div class="form-group">
             {!! Form::label('title', 'Book Title', ['class' => 'awesome']); !!}
             {!! Form::text('title', null, ['class'=>'form-control', 'placeholder'=>'Title....'] ) !!}

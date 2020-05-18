@@ -10,7 +10,6 @@
       <div class="form-group mt-3">
         <span class="info">Book Price : </span><span>50$</span>
       </div>
-
       <div class="form-group">
         <input
           type="number"
@@ -33,9 +32,10 @@
     <div class="popup"></div>
         <div class="col-md-9 col-sm-12">
 
-          
-             @foreach( $userbooks as $book)
-             
+        
+              
+        @for ($i = 0; $i <count($userbooks); $i++)
+
             <div class="container-fluid column">
               <div class="row flex-row flex-nowrap">
                 <div class="col-md-4">
@@ -43,18 +43,17 @@
                     <div>
                       <img
                         class="card-img-top"
-                        src="/images/{{ $book->book_img}}"
                         alt="Card image cap"
                       />
                     </div>
-
-                      <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book->title}}</a> </h5>
+<p>{{$userbooks[$i]}}</p>
+                      <h4 class="card-title">{{ $userbooks[$i]->title}} </h4>
                       <p class="card-text">
-                        {{ $book->description}}
+                        {{ $i->description}}
                       </p>
                   </div>
                 </div>
-                @endforeach
+                 @endfor
                 </div>
               </div>
             </div>
@@ -62,4 +61,4 @@
         </div>
       </div>
     </div>
-    @endsection
+    @endsection      
