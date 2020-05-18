@@ -32,12 +32,12 @@ class BorrowController extends Controller
         // foreach($z as $r){
         //     echo $r." ";
         // }
-        // for ($i = 0 ; $i <count($z); $i ++)
-        // {
-        //  echo $z[$i]." ";
-        // }
+        for ($i = 0 ; $i <count($z); $i ++)
+        {
+         echo $z[$i]." ";
+        }
         // echo "***********";
-                dd($z);
+                // dd($z);
         return view('userbooks',['userbooks'=>$z]);
     }
 

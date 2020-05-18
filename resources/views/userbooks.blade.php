@@ -33,27 +33,29 @@
         <div class="col-md-9 col-sm-12">
 
         
-              
-        @for ($i = 0; $i <count($userbooks); $i++)
+            @for ($i = 0; $i < 2; $i++)
+              @foreach( $userbooks[{{i}}] as $book)
 
-            <div class="container-fluid column">
-              <div class="row flex-row flex-nowrap">
-                <div class="col-md-4">
-                  <div class="card card-block">
-                    <div>
-                      <img
-                        class="card-img-top"
-                        alt="Card image cap"
-                      />
+              <div class="container-fluid column">
+                <div class="row flex-row flex-nowrap">
+                  <div class="col-md-4">
+                    <div class="card card-block">
+                      <div>
+                        <img
+                          class="card-img-top"
+                          src="/images/{{ $book->book_img}}"
+                          alt="Card image cap"
+                        />
+                      </div>
+
+                        <h4 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book->title}}</a> </h4>
+                        <p class="card-text">
+                          {{ $book->description}}
+                        </p>
                     </div>
-<p>{{$userbooks[$i]}}</p>
-                      <h4 class="card-title">{{ $userbooks[$i]->title}} </h4>
-                      <p class="card-text">
-                        {{ $i->description}}
-                      </p>
                   </div>
-                </div>
-                 @endfor
+                  @endforeach
+                @endfor
                 </div>
               </div>
             </div>
@@ -61,4 +63,4 @@
         </div>
       </div>
     </div>
-    @endsection      
+    @endsection
