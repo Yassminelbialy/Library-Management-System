@@ -100,6 +100,7 @@
               </div>
             </form>
           </div>
+         
           <div class="col-md-3">
             <div class="stars mt-5">
               <i class="fas fa-star"></i>
@@ -109,6 +110,8 @@
               <i class="far fa-star"></i>
             </div>
           </div>
+           <!-- indexxxxxxxxxxxxxxxxxxx -->
+           @foreach($comments as $comment)
           <div class="col-md-12 comments_content">
             <div class="card mt-3">
               <div class="card-header">
@@ -119,41 +122,20 @@
                   <i class="far fa-star"></i>
                   <i class="far fa-star"></i>
                 </div>
-
-                <span>Ahmed Hazem</span>
+                @foreach($commentOwner as $i)
+                <span>{{$i->name}}</span>
+                @endforeach
                 <span>12/4/2020 01:25 AM</span>
               </div>
               <div class="card-body">
                 <p class="card-text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Distinctio minima iste beatae tempore dolorem quae sit tenetur
-                  aperiam, nemo id. Voluptatum pariatur illum sint libero id
-                  laborum exercitationem, expedita natus.
-                </p>
-              </div>
-            </div>
-            <div class="card mt-3">
-              <div class="card-header">
-                <div class="stars float-right">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <span>Ahmed Hazem</span>
-                <span>12/4/2020 01:25 AM</span>
-              </div>
-              <div class="card-body">
-                <p class="card-text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Distinctio minima iste beatae tempore dolorem quae sit tenetur
-                  aperiam, nemo id. Voluptatum pariatur illum sint libero id
-                  laborum exercitationem, expedita natus.
+                {{$comment->comment_body}}
                 </p>
               </div>
             </div>
           </div>
+          @endforeach
+          <!-- gggggggggg -->
         </div>
       </div>
     </section>

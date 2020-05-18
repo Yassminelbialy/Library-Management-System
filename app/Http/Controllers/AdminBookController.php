@@ -7,9 +7,8 @@ use \App\Book;
 use \App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\DB;
 use \App\Category;
-use \App\Comment;
 
-class BookController extends Controller
+class AdminBookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        
         $books= DB::table('books')->paginate(3);
         $categories= DB::table('categories')->paginate(2);
-        return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
+        return view('manager.booksList', ["books"=>$books ,"categories"=>$categories]);
     }
 
     /**
@@ -31,7 +29,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view ('manager.newBook');
     }
 
     /**
@@ -40,9 +38,33 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
-        
+         //store
+         $book=new book;
+         $book->title=$request->title;
+         $book->amount=$request->amount;
+         $book->author=$request->author;
+         $book->price=$request->price;
+         $book->cate_id=$request->cate_id;
+         $book->description=$request->description;
+         // first request img then give parameters to store 
+         $book->book_img=$request->book_img->store('images','public');        
+         
+         // upload img to path , assign the img request to real file, then get name as date upload
+         if ($files = $request->file('book_img')) {
+             $destinationPath = 'images/'; 
+             $bookImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+             $files->move($destinationPath, $bookImage);
+             $book->book_img=$bookImage;  // assign img to book
+         }
+ 
+         $book->save();
+ 
+         
+        return redirect('/adminBooks');
+         
+         
     }
 
     /**
@@ -53,19 +75,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $mybook = Book::findOrFail($id);
-        $categoryName = Category::findOrFail($mybook->cate_id)->name;
-        $comments=DB::table('comments')->where('book_id', '=', $id)->get();
-        $commentOwner= DB::table('comments')
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            // ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->where('comments.book_id', '=', $id)
-            ->select('users.name')
-            ->get();
-        // error_log($var);
-        return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName,
-                    "comments"=>$comments, "commentOwner"=>$commentOwner]);
-
+        //
     }
 
     /**
