@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use \App\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories= DB::table('categories');
+        return view('categories.index', ["categories"=>$categories]);
     }
 
     /**
@@ -34,7 +36,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category=new category;
+        $category->name=$request->name;
+        $category->save();
+        return redirect('/categories');
     }
 
     /**
