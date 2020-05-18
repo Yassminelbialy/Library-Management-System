@@ -24,21 +24,17 @@ class BorrowController extends Controller
   
         foreach( $userbooks as $book){
         $boo = \App\Book::where('id',$book->book_id)->get();
-        // // echo $boo[0]->title;
-        array_push($z, $boo);
+        // echo $boo[0]->title;
+        // array_push($z, $boo);
         }
-        // // echo "*********";
-        // echo $boo; //Array
+        // echo "*********";
+        // echo $z;
         // foreach($z as $r){
         //     echo $r." ";
         // }
-        for ($i = 0 ; $i <count($z); $i ++)
-        {
-         echo $z[$i]." ";
-        }
         // echo "***********";
-                // dd($z);
-        return view('userbooks',['userbooks'=>$z]);
+ 
+        return view('userbooks',['userbooks'=>$z]);  
     }
 
     /**
