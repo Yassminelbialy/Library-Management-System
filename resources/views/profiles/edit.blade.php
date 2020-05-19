@@ -37,13 +37,13 @@
                                 <h5 class="card-title">Your Email</h5>
                                 <input type="text" name="email" value="{{$user->email}}" class="card-text form-control">
                             </li>
-                            <li class="list-group-item">
+                            <!-- <li class="list-group-item">
                                 <h5 class="card-title">password</h5>
                                 <input type="password"   name="password" class="card-text form-control">
-                            </li>
+                            </li> -->
                             <li class="list-group-item">
                                 <h5 class="card-title">Your Phone</h5>
-                                <input type="text" value="01067770640" class="card-text form-control">
+                                <input type="text" name="phone" value="{{$user->phone}}" class="card-text form-control">
                             </li>
 
                             <li class="list-group-item">
@@ -53,8 +53,8 @@
 
                     </ul>
                     <div class="card-body">
-                        <input type="submit" class="btn btn-success" value="Updatae">
-                        <a href="#" class="card-link">Back</a>
+                        <input type="submit" class="btn btn-success" value="Update">
+                        <!-- <a href="#" class="card-link">Back</a> -->
                     </div>
                     </form>
 

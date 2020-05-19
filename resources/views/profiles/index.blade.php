@@ -25,7 +25,8 @@
                         </div>
                     </div>
                     <div class="text-center p-2">
-                        <img class=" mt-2 profile_img rounded-circle " src="/images/30849176_2049933711894071_882072814_o.jpg" alt="Card image cap">
+                    <img class=" mt-2 profile_img rounded-circle " src="/images/30849176_2049933711894071_882072814_o.jpg" alt="Card image cap">
+                        <!-- <img class=" mt-2 profile_img rounded-circle " src="{{asset('storage/'.$user->userImg)}}" alt="Card image cap"> -->
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -38,12 +39,12 @@
                         </li>
                         <li class="list-group-item">
                             <h5 class="card-title">Your Phone</h5>
-                            <p class="card-text">01067770640</p>
+                            <p class="card-text">{{$user->phone}}</p>
                         </li>
                     </ul>
                     <div class="card-body">
                         <a href="{{route('profiles.edit',$user->id)}}" class="btn btn-success">Edit</a>
-                        <a href="#" class="card-link">Back</a>
+                        <!-- <a href="#" class="card-link">Back</a> -->
                     </div>
                 </div>
 

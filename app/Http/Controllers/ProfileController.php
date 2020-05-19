@@ -74,15 +74,15 @@ class ProfileController extends Controller
         // dd($request->image->store('images','public'));
         // when aya done from register will code work correct
         $user = User::find($id);
-        $data = $request->only(['name', 'email']);
+        $data = $request->only(['name', 'email','phone']);
         $password = bcrypt($request->password);
         $data['password'] = $password;
         if ($request->hasFile('userImg')) {
-            $image = $request->userImg->store('images');
+            $image = $request->userImg->store('images','public');
             $data['userImg'] = $image;
         }
         $user->update($data);
-        session()->flash('success', 'your Profile is created Successfully');
+        session()->flash('success', 'your Profile is updated Successfully');
         return redirect(route('profiles.index'));
     }
 
