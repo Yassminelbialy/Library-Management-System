@@ -7,9 +7,6 @@
 
     <form class="lease_form h-50 col-sm-3 text-center">
       <span class="close_form">X</span>
-      <div class="form-group mt-3">
-        <span class="info">Book Price : </span><span>50$</span>
-      </div>
       <div class="form-group">
         <input
           type="number"
@@ -21,19 +18,12 @@
           min="1"
         />
       </div>
-
-      <div class="form-group">
-        <span class="info">Total Price : </span><span>100$</span>
-      </div>
-
       <button type="submit" class="btn btn-primary">Done</button>
     </form>
 
     <div class="popup"></div>
         <div class="col-md-9 col-sm-12">
-
-        
-            @foreach( $userbooks as $book)
+            @for ($i = 0; $i < count($userbooks); $i++)       
             <div class="container-fluid column">
               <div class="row flex-row flex-nowrap">
                 <div class="col-md-4">
@@ -41,20 +31,19 @@
                     <div>
                       <img
                         class="card-img-top"
-                        src="/images/{{ $book->book_img}}"
+                        src="/images/{{$userbooks[$i][0]->book_img}}"
                         alt="Card image cap"
                       />
                     </div>
-
-                      <h4 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book->title}}</a> </h4>
+                      <h4 class="card-title"> {{ $userbooks[$i][0]->title}} </h4>
                       <p class="card-text">
-                        {{ $book->description}}
+                        {{ $userbooks[$i][0]->description}}
                       </p>
                   </div>
                 </div>
-                @endforeach
+                @endfor
                 </div>
-              </div>
+              </div>     
             </div>
           </div>
         </div>

@@ -25,10 +25,6 @@ Route::resource('books','BookController')->middleware('auth');
 Route::resource('categories','CategoryController')->middleware('auth');
 Route::get('/facebook/redirect', 'SocialAuthController@redirect');
 Route::get('/facebook/callback', 'SocialAuthController@callback');
-<<<<<<< HEAD
 Route::resource('adminBooks','AdminBookController')->middleware('auth');
 Route::resource('profiles','ProfileController');
-=======
 Route::get('/userbooks', 'BorrowController@index')->name('userbooks');
-Route::resource('adminBooks','AdminBookController')->middleware('auth');
->>>>>>> cf33edcbf00902b7e5d2fb8f9962237fc93cd2ee
