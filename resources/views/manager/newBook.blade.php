@@ -33,8 +33,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('cate_id', 'Category', ['class' => 'awesome']); !!}
-            {!! Form::number('cate_id',1, ['class'=>'form-control'] ) !!}
-{{--            {!! Form::select('cate_id', [1, 2], ['class'=>'form-control']) !!}--}}
+            {{ Form::select('cate_id', $categories, null, ['class'=>'form-control','required'=>'true']) }}
         </div>
         <div class="form-group">
             {!! Form::label('book_img', 'Image', ['class' => 'awesome']); !!}

@@ -17,8 +17,8 @@ class AdminBookController extends Controller
      */
     public function index()
     {
-        $books= DB::table('books')->paginate(3);
-        $categories= DB::table('categories')->paginate(2);
+        $books= DB::table('books')->paginate();
+        $categories= DB::table('categories')->paginate();
         return view('manager.booksList', ["books"=>$books ,"categories"=>$categories]);
     }
 
@@ -29,7 +29,8 @@ class AdminBookController extends Controller
      */
     public function create()
     {
-        return view ('manager.newBook');
+        $categories = Category::all()->pluck('name','id')->toArray();
+        return view ('manager.newBook',['categories'=>$categories]);
     }
 
     /**
@@ -54,7 +55,7 @@ class AdminBookController extends Controller
          // upload img to path , assign the img request to real file, then get name as date upload
          if ($files = $request->file('book_img')) {
              $destinationPath = 'images/'; 
-             $bookImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+             $bookImage = $files->getClientOriginalName();
              $files->move($destinationPath, $bookImage);
              $book->book_img=$bookImage;  // assign img to book
          }
@@ -86,7 +87,9 @@ class AdminBookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $books=Book::findOrFail($id);
+        $categories = Category::all()->pluck('name','id')->toArray();
+        return view ('manager.bookEdit',["books"=>$books ,"categories"=>$categories]);
     }
 
     /**
@@ -98,7 +101,26 @@ class AdminBookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $book=Book::find($id);
+        $book->title=$request->title;
+        $book->amount=$request->amount;
+        $book->author=$request->author;
+        $book->price=$request->price;
+        $book->cate_id=$request->cate_id;
+        $book->description=$request->description;
+        // first request img then give parameters to store 
+        $book->book_img=$request->book_img->store('images','public');        
+        
+        // upload img to path , assign the img request to real file, then get name as date upload
+        if ($files = $request->file('book_img')) {
+            $destinationPath = 'images/'; 
+            $bookImage = $files->getClientOriginalName();
+            $files->move($destinationPath, $bookImage);
+            $book->book_img=$bookImage;  // assign img to book
+        }
+
+        $book->save();
+        return redirect('/adminBooks');
     }
 
     /**
@@ -109,6 +131,8 @@ class AdminBookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book=Book::find($id);
+        $book->delete();
+        return redirect('/adminBooks');
     }
 }
