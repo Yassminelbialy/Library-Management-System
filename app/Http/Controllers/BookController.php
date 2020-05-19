@@ -20,8 +20,8 @@ class BookController extends Controller
     {
 
         $books= DB::table('books')->paginate(3);
-        $categories= DB::table('categories')->paginate(2);
-        return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
+        $categories= DB::table('categories')->paginate(10);
+        return view('books.mybooks2', ["books"=>$books ,"categories"=>$categories]);
     }
 
     /**
@@ -55,6 +55,10 @@ class BookController extends Controller
     {
         $mybook = Book::findOrFail($id);
         $categoryName = Category::findOrFail($mybook->cate_id)->name;
+        // $booksRelated=Category::
+        $books_specific_category = Book::where('cate_id', $mybook->cate_id)->get();
+
+        // $categoryName = Category::findOrFail($mybook->cate_id)->name;
         $comments=DB::table('comments')->where('book_id', '=', $id)->get();
         $commentOwner= DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.user_id')
@@ -64,7 +68,7 @@ class BookController extends Controller
             ->get();
         // error_log($var);
         return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName,
-                    "comments"=>$comments, "commentOwner"=>$commentOwner]);
+                    'comments'=>$comments, 'commentOwner'=>$commentOwner,'books_specific_category'=>$books_specific_category ]);
 
     }
 

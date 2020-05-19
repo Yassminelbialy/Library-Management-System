@@ -28,3 +28,6 @@ Route::get('/facebook/callback', 'SocialAuthController@callback');
 Route::resource('adminBooks','AdminBookController')->middleware('auth');
 Route::get('/userbooks', 'BorrowController@index')->name('userbooks');
 Route::resource('profiles','ProfileController');
+Route::post('/rates','RateController@store');
+
+
