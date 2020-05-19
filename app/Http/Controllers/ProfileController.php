@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-use \App\Book;
-use \App\Http\Requests\BookRequest;
-use Illuminate\Support\Facades\DB;
-use \App\Category;
-use \App\Comment;
+use Illuminate\Support\Facades\Auth;
 
-class BookController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-
-        $books= DB::table('books')->paginate(3);
-        $categories= DB::table('categories')->paginate(10);
-        return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
+        return view('profiles.index')->with('user', Auth::user());
     }
 
     /**
@@ -40,9 +34,9 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -53,23 +47,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $mybook = Book::findOrFail($id);
-        $categoryName = Category::findOrFail($mybook->cate_id)->name;
-        // $booksRelated=Category::
-        $books_specific_category = Book::where('cate_id', $mybook->cate_id)->get();
-
-        // $categoryName = Category::findOrFail($mybook->cate_id)->name;
-        $comments=DB::table('comments')->where('book_id', '=', $id)->get();
-        $commentOwner= DB::table('comments')
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            // ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->where('comments.book_id', '=', $id)
-            ->select('users.name')
-            ->get();
-        // error_log($var);
-        return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName,
-                    'comments'=>$comments, 'commentOwner'=>$commentOwner,'books_specific_category'=>$books_specific_category ]);
-
+        //
     }
 
     /**
@@ -80,7 +58,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('profiles.edit')->with('user', Auth::user());
     }
 
     /**
@@ -91,8 +69,21 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+
     {
-        //
+        // dd($request->image->store('images','public'));
+        // when aya done from register will code work correct
+        $user = User::find($id);
+        $data = $request->only(['name', 'email','phone']);
+        $password = bcrypt($request->password);
+        $data['password'] = $password;
+        if ($request->hasFile('userImg')) {
+            $image = $request->userImg->store('images','public');
+            $data['userImg'] = $image;
+        }
+        $user->update($data);
+        session()->flash('success', 'your Profile is updated Successfully');
+        return redirect(route('profiles.index'));
     }
 
     /**
