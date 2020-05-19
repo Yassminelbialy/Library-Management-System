@@ -40,12 +40,49 @@
                         <h5 class="card-title">Book Category : {{ $categoryName }}</h5>
                         <h5 class="card-title">Price for One Copy : {{ $mybook->price}}</h5>
 
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
+                        <div book_id="{{$mybook->id}}" class="rate">
+                            {{!$count_rate_of_book=App\Rate::where('book_id', '=', $mybook->id)->get()->count()}}
+
+                            @if($count_rate_of_book ==0)
+
+                            @for($i=1; $i<=5; $i++) <i data-value="{{$i}}" class="far fa-star fa-2x"></i>
+
+                                @endfor
+
+                                @else
+
+                                {{!$sum_values_rate = App\Rate::where('book_id', '=', $mybook->id)->get()->avg('rate_value')}}
+
+                                {{!$decimal_total_rate = substr($sum_values_rate, 0, 3)}}
+
+                                {{!$integer_total_rate = substr($sum_values_rate, 0, 1)}}
+
+                                <div hidden>
+                                    {{!$is_desimal = $decimal_total_rate - $integer_total_rate}}
+                                </div>
+
+                                @for ($i = 1; $i <= $integer_total_rate; $i++) <i data-value="{{$i}}" class="fas fa-star fa-2x"></i>
+
+                                    @endfor
+
+                                    @if ($is_desimal >= .3 && $is_desimal <= 8) <i data-value="{{$i}}" class="fas fa-star-half-alt fa-2x"></i>
+
+                                        @for ($i = $integer_total_rate + 2; $i <= 5; $i++) <i data-value="{{$i}}" class="far fa-star fa-2x"></i>
+                                            @endfor
+
+                                            @else
+
+                                            @for ($i = $integer_total_rate + 1; $i <= 5; $i++) <i data-value={{$i}} class="far fa-star fa-2x"></i>
+
+                                                @endfor
+
+
+                                                @endif
+
+                                                <div class="rate_div"> total rated is <span class="rate_numbers"> {{ $decimal_total_rate }}</span> from <span class="rate_numbers"> {{$count_rate_of_book }}</span> Users </div>
+
+
+                                                @endif
                         </div>
 
                         <p class="card-text">
@@ -84,12 +121,38 @@
             </div>
 
             <div class="col-md-3">
-                <div class="stars mt-5">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
+                <div class="rate_user" book_id="{{$mybook->id}}">
+
+                    {{!$rate_user=App\Rate::where('user_id', '=', Illuminate\Support\Facades\Auth::user()->id)->where('book_id', '=', $mybook->id)->get()}}
+
+                    @if($rate_user->count() ==0)
+
+                        @for($i=1; $i<=5; $i++)
+                        <i data-value="{{$i}}" class="far fa-star fa-2x"></i>
+                        @endfor
+
+                    @else
+
+                            @foreach($rate_user as $r)
+                                {{$rate_val=$r->rate_value}}
+                            @endforeach
+
+                            @for ($i = 1; $i <= $rate_val; $i++)
+
+                                <i  data-value="{{$i}}" class="fas fa-star fa-2x"></i>
+
+                            @endfor
+
+                            @for ($i = $rate_val+1; $i <=5; $i++)
+
+                                <i  data-value="{{$i}}" class="far fa-star fa-2x"></i>
+
+                            @endfor
+
+                    @endif
+
+
+
                 </div>
             </div>
             <!-- indexxxxxxxxxxxxxxxxxxx -->
@@ -97,7 +160,7 @@
             <div class="col-md-12 comments_content">
                 <div class="card mt-3">
                     <div class="card-header">
-                        <div class="stars float-right">
+                        <div class="float-right">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -140,6 +203,86 @@
 
     </div>
 </section>
+<script>
+
+    $(document).on("click", ".rate_user .fa-star", function() {
+
+        let reference = $(this);
+        let value_rate = reference.data("value");
+        let book_id = reference.parent().attr('book_id');
+        let rateOutPut = "";
+
+
+        for (var i = 1; i <= value_rate; i++) {
+
+            rateOutPut += `<i data-value="${i}" class="fas fa-star fa-2x"></i>`
+        }
+
+        for (var i = value_rate + 1; i <= 5; i++) {
+            rateOutPut += `<i data-value="${i}" class="far fa-star fa-2x"></i>`
+        }
+
+        $(".rate_user").html(rateOutPut)
+
+
+        $.ajax({
+            url: "http://127.0.0.1:8000/rates",
+            type: "post",
+            dataType: "text",
+            data: {
+                _token: "{{csrf_token()}}",
+                value_rate: value_rate,
+                book_id: book_id
+            },
+            success: function(data) {
+
+                $(".rate").fadeOut(500).fadeIn(500)
+                setTimeout(() => {
+                    $(".rate").html(data)
+                }, 500);
+
+
+            }
+        })
+    })
+
+
+// $(document).on("mouseenter",".rate_user .fa-star",function(){
+
+// let reference = $(this);
+// let value_rate = reference.data("value");
+// let book_id = reference.parent().attr('book_id');
+// let rateOutPut = "";
+
+// for (var i = 1; i <= value_rate; i++) {
+
+//     rateOutPut += `<i data-value="${i}" class="fas fa-star fa-2x"></i>`
+// }
+
+// for (var i = value_rate + 1; i <= 5; i++) {
+//     rateOutPut += `<i data-value="${i}" class="far fa-star fa-2x"></i>`
+// }
+
+// $(reference).parent().html(rateOutPut)
+
+// })
+
+
+// $(document).on("mouseleave",".rate_user .fa-star",function(){
+//     alert("leave")
+
+//     let rateOutPut = "";
+
+//         for (var i = 1; i <= 5; i++) {
+
+//             rateOutPut += `<i data-value="${i}" class="fas fa-star fa-2x"></i>`
+//         }
+
+//         $("body").html(rateOutPut)
+
+// })
+</script>
+
 
 
 @endsection

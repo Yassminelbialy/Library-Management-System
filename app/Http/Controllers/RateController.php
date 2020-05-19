@@ -30,26 +30,19 @@ class RateController extends Controller
             $rate->book_id = (int) $book_id;
 
             $rate->save();
-
         } else {
-            Rate::where([
-
-                'user_id' => $user,
-
-                'book_id' => $book_id
-
-            ])->update(array('rate_value' => $value_rate));
+            Rate::where(['user_id' => $user,'book_id' => $book_id])->update(array('rate_value' => $value_rate));
         }
 
         $count_rate_of_book = Rate::where('book_id', '=', $book_id)->get()->count();
 
-        $sum_values_rate = Rate::where('book_id', '=', $book_id)->get()->sum('rate_value');
+        $sum_values_rate = Rate::where('book_id', '=', $book_id)->get()->avg('rate_value');
 
-        $total_rate = $sum_values_rate / $count_rate_of_book;
+        // $total_rate = $sum_values_rate / $count_rate_of_book;
 
-        $decimal_total_rate = substr($total_rate, 0, 3);
+        $decimal_total_rate = substr($sum_values_rate, 0, 3);
 
-        $integer_total_rate = substr($total_rate, 0, 1);
+        $integer_total_rate = substr($sum_values_rate, 0, 1);
 
         $is_desimal = $decimal_total_rate - $integer_total_rate;
 
@@ -68,16 +61,15 @@ class RateController extends Controller
 
                     echo '<i  data-value="' . $i . '" class="far fa-star fa-2x"></i>';
                 }
-
-            }
-            else{
+            } else {
 
                 for ($i =  $integer_total_rate + 1; $i <= 5; $i++) {
 
                     echo '<i  data-value="' . $i . '" class="far fa-star fa-2x"></i>';
-
                 }
             }
+
+
 
             echo '<div class="rate_div"> total rated is <span class="rate_numbers"> ' . $decimal_total_rate . '</span>  from  <span class="rate_numbers" > ' . $count_rate_of_book . '</span> Users </div>';
 
