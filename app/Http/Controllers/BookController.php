@@ -20,7 +20,7 @@ class BookController extends Controller
     {
 
         $books= DB::table('books')->paginate(3);
-        $categories= DB::table('categories')->paginate(10);
+        $categories= DB::table('categories')->paginate();
         return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
     }
 
