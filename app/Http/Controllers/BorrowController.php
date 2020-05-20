@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use \App\Borrow;
 use \App\Book;
 use \App\Http\Requests\BookRequest;
-use Auth;
-=======
-use App\Borrow;
 use Auth;  //to access session
->>>>>>> 6ece719152361610550cab9425b23fb093ba7171
 
 class BorrowController extends Controller
 {
@@ -22,7 +17,6 @@ class BorrowController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         return "index";
     }
 
@@ -105,7 +99,6 @@ class BorrowController extends Controller
     public function destroy($id)
     {
         //
-=======
         // $userbooks= \App\Borrow::where('user_id',\Auth::id())->get(); 
         $userbooks= \App\Borrow::where('user_id',\Auth::id())->paginate(3);
         // dd(Auth::user());
@@ -120,6 +113,5 @@ class BorrowController extends Controller
 
         }
         return view('userbooks',['userbooks'=>$z]);   
->>>>>>> 6ece719152361610550cab9425b23fb093ba7171
     }
 }

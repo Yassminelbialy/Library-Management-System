@@ -5,9 +5,9 @@
 <audio class="bell" src="bell.mp3"></audio>
 <!-- PopUp Started -->
 
-    @foreach( $categories as $category)
-    <div class="container my_books ">
-      <div class="row">
+   
+<div class="container my_books ">
+    <div class="row">
         <div class="col-md-3 category col-sm-12 mt-5 pt-5">
             <ul class="list-group">
                 <!-- it is dynamic from databse -->
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                      
+                    
                 <div class="col-md-12 mt-3">
                     <div class="book_content row">
                         @foreach( $books as $book)
@@ -126,15 +126,16 @@
 
                                             @endif
                                     </div>
+                
 
-
-                                    <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a> </h5>
-                      <p class="card-text">
-                        {{ $book-> description}}
-                      </p>
-                       <div class="card">
-
-                      
+                                    <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a></h5>
+                                    <p class="card-text">
+                                        {{ $book-> author}}
+                                    </p>
+                                    <p class="card-text">
+                                        {{ $book-> description}}
+                                    </p>
+                                                     
                       @if( $book->amount > 0)
                       <div class="mb-3">
                         <span class="badge badge-pill badge-primary p-2 mr-4">
@@ -155,8 +156,11 @@
                       </div>
                      <h6 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>  
               @endif
-                    </div>
-                  </div>
+                   
+                                </div>
+                            </div>
+                        </div>
+
                         @endforeach
 
                         {{ $books->links() }}
