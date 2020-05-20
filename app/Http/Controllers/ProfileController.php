@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-use \App\Borrow;
-use \App\Book;
-use \App\Http\Requests\BookRequest;
-use Auth;
-=======
-use App\Borrow;
-use Auth;  //to access session
->>>>>>> 6ece719152361610550cab9425b23fb093ba7171
+use Illuminate\Support\Facades\Auth;
 
-class BorrowController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +15,7 @@ class BorrowController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        return "index";
+        return view('profiles.index')->with('user', Auth::user());
     }
 
     /**
@@ -33,7 +25,7 @@ class BorrowController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -44,20 +36,7 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-        $book = Book::findOrFail($request->book_id);
-        if($book->amount>=1)
-        { 
-            $book->amount=$book->amount-1;
-            $borrow= new Borrow;
-            $borrow->user_id=Auth::id();
-            $borrow->book_id=$request->book_id;
-            $borrow->days=$request->days;
-            $borrow->save();
-            $book->save();
-        }
-       
-        
-        return redirect()->route('home');
+        //
     }
 
     /**
@@ -68,9 +47,7 @@ class BorrowController extends Controller
      */
     public function show($id)
     {
-        $mybook = Book::findOrFail($id);
-        
-        return view('books.book_lease', ['mybook'=>$mybook]);
+        //
     }
 
     /**
@@ -81,7 +58,7 @@ class BorrowController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('profiles.edit')->with('user', Auth::user());
     }
 
     /**
@@ -92,8 +69,21 @@ class BorrowController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+
     {
-        //
+        // dd($request->image->store('images','public'));
+        // when aya done from register will code work correct
+        $user = User::find($id);
+        $data = $request->only(['name', 'email','phone']);
+        $password = bcrypt($request->password);
+        $data['password'] = $password;
+        if ($request->hasFile('userImg')) {
+            $image = $request->userImg->store('images','public');
+            $data['userImg'] = $image;
+        }
+        $user->update($data);
+        session()->flash('success', 'your Profile is updated Successfully');
+        return redirect(route('profiles.index'));
     }
 
     /**
@@ -105,21 +95,5 @@ class BorrowController extends Controller
     public function destroy($id)
     {
         //
-=======
-        // $userbooks= \App\Borrow::where('user_id',\Auth::id())->get(); 
-        $userbooks= \App\Borrow::where('user_id',\Auth::id())->paginate(3);
-        // dd(Auth::user());
-        $user = Auth::user();
-        // echo "$userbooks";
-        $z = [];
-  
-        foreach( $userbooks as $book){
-        $boo = \App\Book::where('id',$book->book_id)->get();
-        // echo "$boo";
-        array_push($z, $boo);     
-
-        }
-        return view('userbooks',['userbooks'=>$z]);   
->>>>>>> 6ece719152361610550cab9425b23fb093ba7171
     }
 }

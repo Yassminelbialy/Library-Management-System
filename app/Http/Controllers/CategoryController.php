@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Book;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use \App\Category;
@@ -14,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories= DB::table('categories');
+       
+        $categories= DB::table('categories')->paginate();
         return view('categories.index', ["categories"=>$categories]);
     }
 
@@ -48,9 +51,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $category_id = $request->input('cartegor_id');
+
+        $book_specific_category = Book::where('cate_id', $category_id )->paginate(3);
+
+
+        return view(
+            'categories.show',
+            [
+                'book_specific_category' => $book_specific_category,
+
+            ]
+        );
     }
 
     /**
@@ -61,7 +75,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories=Category::find($id);
+        return view ('categories.edit',["categories"=>$categories]);
     }
 
     /**
@@ -73,7 +88,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category=Category::find($id);
+        $category->name=$request->name;
+      
+        
+        $category->save();
+        return redirect('/categories');
     }
 
     /**
@@ -84,6 +104,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $category=Category::find($id);
+        $category->delete();
+        return redirect('/categories');
     }
 }
