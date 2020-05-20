@@ -1,3 +1,5 @@
+
+
 //  Heart started animation and add sound effect when it is acive
 $(".fa-heart").on("click", function () {
     $(this).toggleClass("heart-active");
@@ -21,27 +23,27 @@ $(".fa-search").click(function () {
     );
 });
 
-// Popup will show and form animtion when click on lease button
-$(".lease_btn").on("click", function () {
-    $(".lease_form").css({
-        top: "20%",
-        transform:
-            "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)",
-        transition: "all 1s",
-    });
-    $(".popup").show();
-});
+// // Popup will show and form animtion when click on lease button
+// $(".lease_btn").on("click", function () {
+//     $(".lease_form").css({
+//         top: "20%",
+//         transform:
+//             "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)",
+//         transition: "all 1s",
+//     });
+//     $(".popup").show();
+// });
 
-// close form when i click on it popup will disappear and form
-$(".close_form").on("click", function () {
-    $(".lease_form").css({
-        top: "-50%",
-        transform:
-            "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)  ",
-        transition: "all .2s",
-    });
-    $(".popup").hide();
-});
+// // close form when i click on it popup will disappear and form
+// $(".close_form").on("click", function () {
+//     $(".lease_form").css({
+//         top: "-50%",
+//         transform:
+//             "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)  ",
+//         transition: "all .2s",
+//     });
+//     $(".popup").hide();
+// });
 
 // tabs acivation when i click on it will background change by adding class active
 $(".tabs_book > li > a").on("click", function (e) {
@@ -98,6 +100,9 @@ $(window).scroll(function () {
         navbar.removeClass("sticky");
     }
 });
+
+
+
 
 // Aos Started
 

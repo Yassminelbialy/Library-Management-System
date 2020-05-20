@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Borrow;
 use \App\Book;
 use \App\Http\Requests\BookRequest;
-use Illuminate\Support\Facades\DB;
-use \App\Category;
+use Auth;
 
-class BookController extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        
-        $books= DB::table('books')->paginate(3);
-        $categories= DB::table('categories')->paginate(2);
-        return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
+        return "index";
     }
 
     /**
@@ -30,7 +27,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -39,9 +36,22 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
-        //store
+        $book = Book::findOrFail($request->book_id);
+        if($book->amount>=1)
+        { 
+            $book->amount=$book->amount-1;
+            $borrow= new Borrow;
+            $borrow->user_id=Auth::id();
+            $borrow->book_id=$request->book_id;
+            $borrow->days=$request->days;
+            $borrow->save();
+            $book->save();
+        }
+       
+        
+        return redirect()->route('home');
     }
 
     /**
@@ -53,9 +63,8 @@ class BookController extends Controller
     public function show($id)
     {
         $mybook = Book::findOrFail($id);
-        $categoryName = Category::findOrFail($mybook->cate_id)->name;
-        return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName]);
-
+        
+        return view('books.book_lease', ['mybook'=>$mybook]);
     }
 
     /**
@@ -66,7 +75,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        
+        //
     }
 
     /**
@@ -80,8 +89,6 @@ class BookController extends Controller
     {
         //
     }
-    
-    
 
     /**
      * Remove the specified resource from storage.
@@ -93,5 +100,4 @@ class BookController extends Controller
     {
         //
     }
-     
 }

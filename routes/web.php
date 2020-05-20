@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('borrow','BorrowController')->middleware('auth');
 Route::resource('books','BookController')->middleware('auth');
 Route::resource('categories','CategoryController')->middleware('auth');
 Route::get('/facebook/redirect', 'SocialAuthController@redirect');

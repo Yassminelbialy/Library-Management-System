@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         $username= new user();
         $username = request()->user()->name; 
         return view('home', ['username'=>$username]);

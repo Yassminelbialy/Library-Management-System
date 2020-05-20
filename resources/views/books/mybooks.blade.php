@@ -5,32 +5,6 @@
     <audio class="bell" src="bell.mp3"></audio>
     <!-- PopUp Started -->
 
-    <form class="lease_form h-50 col-sm-3 text-center">
-      <span class="close_form">X</span>
-      <div class="form-group mt-3">
-        <span class="info">Book Price : </span><span>50$</span>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="number"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Number of Days"
-          value=""
-          min="1"
-        />
-      </div>
-
-      <div class="form-group">
-        <span class="info">Total Price : </span><span>100$</span>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Done</button>
-    </form>
-
-    <div class="popup"></div>
     @foreach( $categories as $category)
     <div class="container my_books ">
       <div class="row">
@@ -112,6 +86,8 @@
                       </p>
                        <div class="card">
 
+                      
+                      @if( $book->amount > 0)
                       <div class="mb-3">
                         <span class="badge badge-pill badge-primary p-2 mr-4">
                           <span class="count_of_book">{{ $book-> amount }}</span>
@@ -119,10 +95,18 @@
                         </span>
                         <i class="fas fa-heart fa-2x"></i>
                       </div>
-                      <a href="#" class="w-100 rounded-pill lease_btn btn btn-success"
-                        >Lease</a
-                      >
-
+                <a href="/borrow/{{ $book->id }}" class="w-100 rounded-pill lease_btn btn btn-success"
+                  >Lease</a>
+                @else
+                <div class="mb-3">
+                        <span class="badge badge-pill badge-danger p-2 mr-4">
+                          
+                         no copies available
+                        </span>
+                        <i class="fas fa-heart fa-2x"></i>
+                      </div>
+                     <h6 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>  
+              @endif
                     </div>
                   </div>
 
