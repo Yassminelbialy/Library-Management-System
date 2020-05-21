@@ -1,17 +1,40 @@
-
-
 //  Heart started animation and add sound effect when it is acive
-$(".fa-heart").on("click", function () {
-    $(this).toggleClass("heart-active");
-    if ($(this).hasClass("heart-active")) {
-        $(".bell").get(0).currentTime = 0;
-        $(".bell").get(0).play();
-        setTimeout(() => {
-            $(".bell").get(0).pause();
-            $(".bell").get(0).currentTime = 1;
-        }, 600);
-    }
+// $(".fa-heart").on("click", function () {
+//     $(this).toggleClass("heart-active");
+//     if ($(this).hasClass("heart-active")) {
+//         $(".bell").get(0).currentTime = 0;
+//         $(".bell").get(0).play();
+//         setTimeout(() => {
+//             $(".bell").get(0).pause();
+//             $(".bell").get(0).currentTime = 1;
+//         }, 600);
+//     }
+// });
+
+$(".fa-heart").on("click", function (event){
+    // $(this).toggleClass("heart-active");
+    bookid = $(this).data("bookid");
+    $.ajax({
+        method: 'POST',
+        url: urlFav,
+        data: {bookid: bookid , _token:token},
+        success: function(data){
+           
+            if(data.is_fav == 1){
+                $(event.target).removeClass("text-dark").addClass("text-danger");
+
+            }
+            if(data.is_fav == 0){
+                $(event.target).removeClass("text-danger").addClass("text-dark");
+            }
+        }
+        
+    });
+    // .done(function(){
+    //    // do some thing here
+    // })
 });
+
 // Search started animation when click on search icon the form will appeare
 $(".fa-search").click(function () {
     $(".search").show(1000);

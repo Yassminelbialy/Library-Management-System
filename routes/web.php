@@ -34,4 +34,10 @@ Route::get('/userbooks', 'BorrowController@index')->name('userbooks');
 Route::resource('profiles','ProfileController');
 Route::post('/rates','RateController@store');
 
+Route::post('/favor', [ 
+    'uses'=>'FavoriteController@bookFavBook',
+    'as'=>'favor'
+]);
+Route::get('favorites','FavoriteController@index');
+
 

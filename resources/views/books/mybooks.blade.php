@@ -61,7 +61,11 @@
                         </div>
                     </div>
                 </div>
-
+                @php
+                $allfavs=  DB::table('favorites')->get();
+                $getbook = DB::table('favorites')->first();
+                $fav = DB::table('favorites')->select('book_id')->first();
+                @endphp
                     
                 <div class="col-md-12 mt-3">
                     <div class="book_content row">
@@ -142,7 +146,15 @@
                           <span class="count_of_book">{{ $book-> amount }}</span>
                           copies available
                         </span>
-                        <i class="fas fa-heart fa-2x"></i>
+
+                        @if(count($allfavs)== 0 || count($allfavs) < count($books))
+                         <i id="favorite" data-bookid="{{ $book-> id }}" class="fas fa-heart fa-2x text-dark"></i>
+                        @endif
+                        @foreach($allfavs as $myfav)
+                        @if($myfav->book_id == $book->id)
+                        <i id="favorite" data-bookid="{{ $book-> id }}" class="fas fa-heart fa-2x text-danger"></i>
+                        @endif
+                        @endforeach
                       </div>
                 <a href="/borrow/{{ $book->id }}" class="w-100 rounded-pill lease_btn btn btn-success"
                   >Lease</a>
@@ -222,6 +234,12 @@
             }
         })
     })
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    var token = '{{ Session::token()}}';
+    var urlFav = '{{ route('favor') }}';
+    
 </script>
 
 
