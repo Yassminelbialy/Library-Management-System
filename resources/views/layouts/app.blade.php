@@ -121,6 +121,7 @@
 });
     </script>
     <script src="/js/main.js"></script>
+    @yield('formscript')
 
 </body>
 

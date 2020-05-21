@@ -5,25 +5,7 @@
 <audio class="bell" src="bell.mp3"></audio>
 <!-- PopUp Started -->
 
-<form class="lease_form h-50 col-sm-3 text-center">
-    <span class="close_form">X</span>
-    <div class="form-group mt-3">
-        <span class="info">Book Price : </span><span>50$</span>
-    </div>
-
-    <div class="form-group">
-        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Number of Days" value="" min="1" />
-    </div>
-
-    <div class="form-group">
-        <span class="info">Total Price : </span><span>100$</span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Done</button>
-</form>
-
-<div class="popup"></div>
-
+   
 <div class="container my_books ">
     <div class="row">
         <div class="col-md-3 category col-sm-12 mt-5 pt-5">
@@ -80,37 +62,101 @@
                     </div>
                 </div>
 
+                    
                 <div class="col-md-12 mt-3">
                     <div class="book_content row">
-                    @foreach( $books as $book)
+                        @foreach( $books as $book)
                         <div class="col-md-4">
                             <div class="card">
                                 <div>
-                                    <img class="card-img-top"  src="/images/{{ $book-> book_img}}" alt="Card image cap" />
+                                    <img class="card-img-top" src="/images/{{ $book-> book_img}}" alt="Card image cap" />
                                 </div>
                                 <div class="card-body">
                                     <div book_id="{{$book->id}}" class="rate">
-                                        <i data-value="1" class="far fa-star fa-2x"></i>
-                                        <i data-value="2" class="far fa-star fa-2x"></i>
-                                        <i data-value="3" class="far fa-star fa-2x"></i>
-                                        <i data-value="4" class="far fa-star fa-2x"></i>
-                                        <i data-value="5" class="far fa-star fa-2x"></i>
+                                        {{!$count_rate_of_book=App\Rate::where('book_id', '=', $book->id)->get()->count()}}
+
+                                        @if($count_rate_of_book ==0)
+
+                                            @for($i=1; $i<=5; $i++)
+
+                                                 <i data-value="{{$i}}" class="far fa-star fa-2x"></i>
+
+                                            @endfor
+
+                                        @else
+
+                                            {{!$sum_values_rate = App\Rate::where('book_id', '=', $book->id)->get()->avg('rate_value')}}
+
+                                            {{!$decimal_total_rate = substr($sum_values_rate, 0, 3)}}
+
+                                            {{!$integer_total_rate = substr($sum_values_rate, 0, 1)}}
+
+                                            <div hidden >
+                                                 {{!$is_desimal = $decimal_total_rate - $integer_total_rate}}
+                                             </div>
+
+                                                @for ($i = 1; $i <= $integer_total_rate; $i++)
+
+                                                    <i  data-value="{{$i}}" class="fas fa-star fa-2x"></i>
+
+                                                @endfor
+
+                                                @if ($is_desimal >= .3 && $is_desimal <= 8)
+
+                                                    <i   data-value="{{$i}}" class="fas fa-star-half-alt fa-2x"></i>
+
+                                                    @for ($i =  $integer_total_rate + 2; $i <= 5; $i++)
+
+                                                        <i  data-value="{{$i}}" class="far fa-star fa-2x"></i>
+                                                    @endfor
+
+                                                    @else
+
+                                                        @for ($i =  $integer_total_rate + 1; $i <= 5; $i++)
+
+                                                            <i  data-value={{$i}} class="far fa-star fa-2x"></i>
+
+                                                        @endfor
+
+
+                                                @endif
+
+                                                <div class="rate_div"> total rated is <span class="rate_numbers"> {{ $decimal_total_rate }}</span>  from  <span class="rate_numbers" >  {{$count_rate_of_book }}</span> Users </div>
+
+
+                                            @endif
                                     </div>
+                
+
                                     <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a></h5>
                                     <p class="card-text">
-                                    {{ $book-> author}}
+                                        {{ $book-> author}}
                                     </p>
                                     <p class="card-text">
-                                    {{ $book-> description}}
+                                        {{ $book-> description}}
                                     </p>
-                                    <div class="mb-3">
-                                        <span class="badge badge-pill badge-primary p-2 mr-4">
-                                            <span class="count_of_book">{{ $book-> amount }}</span>
-                                            copies available
-                                        </span>
-                                        <i class="fas fa-heart fa-2x"></i>
-                                    </div>
-                                    <a href="#" class="w-100 rounded-pill lease_btn btn btn-success">Lease</a>
+                                                     
+                      @if( $book->amount > 0)
+                      <div class="mb-3">
+                        <span class="badge badge-pill badge-primary p-2 mr-4">
+                          <span class="count_of_book">{{ $book-> amount }}</span>
+                          copies available
+                        </span>
+                        <i class="fas fa-heart fa-2x"></i>
+                      </div>
+                <a href="/borrow/{{ $book->id }}" class="w-100 rounded-pill lease_btn btn btn-success"
+                  >Lease</a>
+                @else
+                <div class="mb-3">
+                        <span class="badge badge-pill badge-danger p-2 mr-4">
+                          
+                         no copies available
+                        </span>
+                        <i class="fas fa-heart fa-2x"></i>
+                      </div>
+                     <h6 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>  
+              @endif
+                   
                                 </div>
                             </div>
                         </div>

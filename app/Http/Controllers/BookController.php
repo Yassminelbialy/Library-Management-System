@@ -18,7 +18,7 @@ class BookController extends Controller
      */
     public function index()
     {
-
+        
         $books= DB::table('books')->paginate(3);
         $categories= DB::table('categories')->paginate();
         return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
@@ -80,7 +80,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -94,6 +94,8 @@ class BookController extends Controller
     {
         //
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.
@@ -105,4 +107,5 @@ class BookController extends Controller
     {
         //
     }
+     
 }

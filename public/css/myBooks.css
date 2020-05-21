@@ -112,7 +112,8 @@ input[type="search"]:focus {
 
 .rate_numbers{
     color: red;
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: bolder;
 }
 
 .order > span {
@@ -322,4 +323,10 @@ footer::before {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+main
+{
+    min-height: 70vh;
 }
