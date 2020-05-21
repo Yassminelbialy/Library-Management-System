@@ -72,8 +72,8 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Admin') }}</label>
 
                             <div class="col-md-6">
-                                <input type="checkbox" value="1" id="custom7" checked="checked" /> 
-                                <input type="hidden" value="1" id="hdncustom7" name="adminRole" />
+                                <input type="checkbox" value="0" id="custom7" checked="checked" /> 
+                                <input type="hidden" value="0" id="hdncustom7" name="adminRole" />
                             </div>
                         </div>
                         <div class="form-group row">
