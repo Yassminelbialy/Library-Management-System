@@ -110,9 +110,9 @@ class AdminBookController extends Controller
         $book->price=$request->price;
         $book->cate_id=$request->cate_id;
         $book->description=$request->description;
+
         // first request img then give parameters to store 
         $book->book_img=$request->book_img->store('images','public');        
-        
         // upload img to path , assign the img request to real file, then get name as date upload
         if ($files = $request->file('book_img')) {
             $destinationPath = 'images/'; 
@@ -136,16 +136,16 @@ class AdminBookController extends Controller
         $book=Book::find($id);
         $file = $book->book_img;
         $book->delete();
-        
+        // unlik should happen after book delete
         $image_path = public_path('images/' .$file);
 
         if (unlink($image_path)){
-            return redirect('/adminBooks');
+            return redirect('/adminBooks'); //to see if book deleted
         }else{
-            dd("not deleted");
+            dd("not deleted"); 
         }
 
-        
+        //>>>> don't uncomment this >>>>
         // first try but errors
         // $image_path = "/images/".$file;  
         // if(File::exists($image_path)) {
@@ -156,6 +156,8 @@ class AdminBookController extends Controller
         // {
         //     dd($image_path);
         // }
+
+        //>>>>>>>>>>>>>>>>>>>>>>>.
         return redirect('/adminBooks');
     }
 }
