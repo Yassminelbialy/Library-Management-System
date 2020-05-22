@@ -7,6 +7,7 @@ use \App\Book;
 use \App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\DB;
 use \App\Category;
+use File;
 
 class AdminBookController extends Controller
 {
@@ -130,10 +131,31 @@ class AdminBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $book=Book::find($id);
+        $file = $book->book_img;
         $book->delete();
+        
+        $image_path = public_path('images/' .$file);
+
+        if (unlink($image_path)){
+            return redirect('/adminBooks');
+        }else{
+            dd("not deleted");
+        }
+
+        
+        // first try but errors
+        // $image_path = "/images/".$file;  
+        // if(File::exists($image_path)) {
+        //     File::delete($image_path);
+            
+        // }
+        // else
+        // {
+        //     dd($image_path);
+        // }
         return redirect('/adminBooks');
     }
 }
