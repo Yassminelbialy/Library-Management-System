@@ -100,14 +100,6 @@
                         <h1 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>
                         @endif
                     </div>
-                </div>
-                @if( $mybook->amount > 0)
-                <a href="/borrow/{{ $mybook->id }}" class="w-100 rounded-pill lease_btn btn btn-success"
-                  >Lease</a>
-                @else
-                     <h1 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>  
-              @endif
-              </div>
             </div>
         </div>
     </div>

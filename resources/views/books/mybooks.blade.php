@@ -126,12 +126,12 @@
                                                 @endif
 
                                                 <div class="rate_div"> total rated is <span class="rate_numbers"> {{ $decimal_total_rate }}</span>  from  <span class="rate_numbers" >  {{$count_rate_of_book }}</span> Users </div>
-
+                                           
 
                                             @endif
                                     </div>
                 
-
+                                    <hr>
                                     <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a></h5>
                                     <p class="card-text">
                                        By : {{ $book-> author}}
@@ -174,10 +174,10 @@
                         </div>
 
                         @endforeach
-
-                        {{ $books->links() }}
-
-
+                      
+                    </div>
+                    <div class="offset-3">
+                          <h2>{{ $books->links() }}</h2>
                     </div>
                 </div>
             </div>

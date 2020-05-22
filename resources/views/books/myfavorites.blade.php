@@ -7,14 +7,13 @@
 @endif
 @foreach($books as $book)
 @foreach($allFavBooks as $myfav)
-   <div>
-    <ul>
-    @if($myfav->book_id == $book->id)
-    <li><a href="/books/{{ $book->id}}"> {{$book->title}}<a></li>
-    @endif
+
+<div class="list-group mt-3">
+   @if($myfav->book_id == $book->id)
+  <a href="/books/{{ $book->id}}" class="list-group-item active  list-group-item-danger col-3">{{$book->title}} </a>
+  @endif
+</div>    
    
-</ul>
-</div>
 @endforeach
 @endforeach
 @endsection
