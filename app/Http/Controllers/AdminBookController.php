@@ -52,6 +52,7 @@ class AdminBookController extends Controller
          // first request img then give parameters to store 
          $book->book_img=$request->book_img->store('images','public');        
          
+        //>>> uploading images to right place and saving imgs in db by name or date made by Anis >>>
          // upload img to path , assign the img request to real file, then get name as date upload
          if ($files = $request->file('book_img')) {
              $destinationPath = 'images/'; 
@@ -61,7 +62,7 @@ class AdminBookController extends Controller
          }
  
          $book->save();
- 
+ // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
          
         return redirect('/adminBooks');
          
