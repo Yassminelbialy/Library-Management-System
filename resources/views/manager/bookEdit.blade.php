@@ -48,7 +48,7 @@
                 />
         </div>
              <div style="margin-left:520px">
-                 {!! Form::submit('Edit',['class'=>'btn btn-dark']); !!}
+                 {!! Form::submit('update',['class'=>'btn btn-dark']); !!}
              </div>
 
         {!! Form::close() !!}

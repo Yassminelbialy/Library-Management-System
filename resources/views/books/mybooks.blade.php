@@ -24,8 +24,8 @@
             <div class="row">
                 <div class="col-md-12 tabs_content">
                     <ul class="tabs_book">
-                        <li class="active_tab_book"><a href="">my books</a></li>
-                        <li><a href=""> favorite</a> </li>
+                        <a class=" btn btn-light text-dark" href="/books">My Books</a>
+                        <a  class=" btn btn-light ml-3 text-dark " href="/favorites" >Favorite</a>
                     </ul>
 
                 </div>
@@ -134,7 +134,7 @@
 
                                     <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a></h5>
                                     <p class="card-text">
-                                        {{ $book-> author}}
+                                       By : {{ $book-> author}}
                                     </p>
                                     <p class="card-text">
                                         {{ $book-> description}}
