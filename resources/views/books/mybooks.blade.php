@@ -22,13 +22,13 @@
 
         <div class="col-md-9 col-sm-12">
             <div class="row">
-                <div class="col-md-12 tabs_content">
+                <!-- <div class="col-md-12 tabs_content">
                     <ul class="tabs_book">
                         <a class=" btn btn-light text-dark" href="/books">My Books</a>
                         <a  class=" btn btn-light ml-3 text-dark " href="/favorites" >Favorite</a>
                     </ul>
 
-                </div>
+                </div> -->
                 <div class="col-md-12 search_bar border-bottom pb-3 mt-3">
                     <div class="row">
                         <div class="col-md-6">

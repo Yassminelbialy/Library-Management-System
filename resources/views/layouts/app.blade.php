@@ -56,6 +56,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('userbooks') }}">{{ __('My Books') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a  class="nav-link"href="{{route('listfavourits')}}" >{{__('My Favorites') }}</a>
+                        </li>
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -64,6 +67,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
+                        
                         @endif
                         @else
                         <li class="nav-item dropdown">

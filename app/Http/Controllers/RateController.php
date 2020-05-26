@@ -76,4 +76,8 @@ class RateController extends Controller
             return;
         }
     }
+    public function index(Request $request)
+    {
+        
+    }
 }

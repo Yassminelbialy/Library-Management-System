@@ -33,11 +33,13 @@ Route::resource('admins','AdminController')->middleware('auth');
 Route::get('/userbooks', 'BorrowController@index')->name('userbooks');
 Route::resource('profiles','ProfileController');
 Route::post('/rates','RateController@store');
+Route::get('/rates','RateController@index');
+
 
 Route::post('/favor', [ 
     'uses'=>'FavoriteController@bookFavBook',
     'as'=>'favor'
 ]);
-Route::get('favorites','FavoriteController@index');
+Route::get('favorites','FavoriteController@index')->name('listfavourits');
 
 
