@@ -5,7 +5,7 @@
 <audio class="bell" src="bell.mp3"></audio>
 <!-- PopUp Started -->
 
-   
+
 <div class="container my_books ">
     <div class="row">
         <div class="col-md-3 category col-sm-12 mt-5 pt-5">
@@ -61,16 +61,16 @@
                         </div>
                     </div>
                 </div>
-                
-                    
+
+
                 <div class="col-md-12 mt-3">
                     <div class="book_content row">
                         @foreach( $books as $book)
 
                         @php
                         $allfavs= App\Favorite::where('book_id', '=', $book->id)->get()->count();
-                        
-                        
+
+
                         @endphp
                         <div class="col-md-4">
                             <div class="card">
@@ -128,11 +128,11 @@
                                                 @endif
 
                                                 <div class="rate_div"> total rated is <span class="rate_numbers"> {{ $decimal_total_rate }}</span>  from  <span class="rate_numbers" >  {{$count_rate_of_book }}</span> Users </div>
-                                           
+
 
                                             @endif
                                     </div>
-                
+
                                     <hr>
                                     <h5 class="card-title"> <a href="/books/{{ $book->id }}">{{ $book ->title}}</a></h5>
                                     <p class="card-text">
@@ -141,14 +141,14 @@
                                     <p class="card-text">
                                         {{ $book-> description}}
                                     </p>
-                                                     
+
                       @if( $book->amount > 0)
                       <div class="mb-3">
                         <span class="badge badge-pill badge-primary p-2 mr-4">
                           <span class="count_of_book">{{ $book-> amount }}</span>
                           copies available
                         </span>
-                       
+
 
                         @if(($allfavs)== 0 )
                          <i id="favorite" data-bookid="{{ $book-> id }}" class="fas fa-heart fa-2x text-dark"></i>
@@ -156,28 +156,28 @@
                         <i id="favorite" data-bookid="{{ $book-> id }}" class="fas fa-heart fa-2x text-danger"></i>
 
                         @endif
-                        
-                      
+
+
                       </div>
                 <a href="/borrow/{{ $book->id }}" class="w-100 rounded-pill lease_btn btn btn-success"
                   >Lease</a>
                 @else
                 <div class="mb-3">
                         <span class="badge badge-pill badge-danger p-2 mr-4">
-                          
+
                          no copies available
                         </span>
                         <i class="fas fa-heart fa-2x"></i>
                       </div>
-                     <h6 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>  
+                     <h6 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>
               @endif
-                   
+
                                 </div>
                             </div>
                         </div>
 
                         @endforeach
-                      
+
                     </div>
                     <div class="offset-3">
                           <h2>{{ $books->links() }}</h2>
@@ -195,7 +195,7 @@
         let cartegor_id = $(this).data("category-id");
 
         $.ajax({
-            url: "http://127.0.0.1:8000/categories/" + cartegor_id,
+            url:"/categories/" + cartegor_id,
             type: "get",
             dataType: "html",
             data: {
@@ -221,7 +221,7 @@
 
         // alert(book_id);
         $.ajax({
-            url: "http://127.0.0.1:8000/rates",
+            url: "/rates",
             type: "post",
             dataType: "text",
             data: {
@@ -242,7 +242,7 @@
     <script>
     var token = '{{ Session::token()}}';
     var urlFav = '{{ route('favor') }}';
-    
+
 </script>
 
 
