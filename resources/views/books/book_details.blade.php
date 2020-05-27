@@ -39,9 +39,9 @@
                     @endphp
 
                     @if(($allfavs)== 0 )
-                         <i id="favorite" data-bookid="{{  $mybook-> id }}" class="fas fa-heart fa-2x text-dark"></i>
+                         <i id="favorite" data-bookid="{{  $mybook-> id }}" class="fas fa-heart fa-2x float-right text-dark"></i>
                     @else
-                        <i id="favorite" data-bookid="{{ $mybook-> id }}" class="fas fa-heart fa-2x text-danger"></i>
+                        <i id="favorite" data-bookid="{{ $mybook-> id }}" class="fas fa-heart fa-2x float-right text-danger"></i>
 
                     @endif
 
