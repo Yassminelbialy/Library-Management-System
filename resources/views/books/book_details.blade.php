@@ -34,7 +34,17 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <i class="fas fa-heart fa-2x float-right"></i>
+                    @php
+                        $allfavs= App\Favorite::where('book_id', '=', $mybook->id)->get()->count();
+                    @endphp
+
+                    @if(($allfavs)== 0 )
+                         <i id="favorite" data-bookid="{{  $mybook-> id }}" class="fas fa-heart fa-2x text-dark"></i>
+                    @else
+                        <i id="favorite" data-bookid="{{ $mybook-> id }}" class="fas fa-heart fa-2x text-danger"></i>
+
+                    @endif
+
                         <h5 class="card-title">Book Title : {{ $mybook->title}}</h5>
                         <h5 class="card-title">Book Author : {{ $mybook->author}}</h5>
                         <h5 class="card-title">Book Category : {{ $categoryName }}</h5>
@@ -282,6 +292,12 @@
 // })
 </script>
 
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    var token = '{{ Session::token()}}';
+    var urlFav = '{{ route('favor') }}';
 
+</script>
 
 @endsection
