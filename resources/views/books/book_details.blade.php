@@ -35,7 +35,9 @@
                 <div class="card">
                     <div class="card-body">
                     @php
-                        $allfavs= App\Favorite::where('book_id', '=', $mybook->id)->get()->count();
+                        $user = Auth::user();
+                        $allfavs = App\Favorite::where('book_id', '=',$mybook->id)
+                        ->where('user_id', '=',$user->id)->get()->count();
                     @endphp
 
                     @if(($allfavs)== 0 )

@@ -68,9 +68,9 @@
                         @foreach( $books as $book)
 
                         @php
-                        $allfavs= App\Favorite::where('book_id', '=', $book->id)->get()->count();
-
-
+                        $user = Auth::user();
+                        $allfavs = App\Favorite::where('book_id', '=',$book->id)
+                        ->where('user_id', '=',$user->id)->get()->count();
                         @endphp
                         <div class="col-md-4">
                             <div class="card">
