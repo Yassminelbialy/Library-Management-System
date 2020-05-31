@@ -1,28 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Sound Started -->
-<audio class="bell" src="/bell.mp3"></audio>
-<!-- PopUp Started -->
 
-<form class="lease_form h-50 col-sm-3 text-center">
-    <span class="close_form">X</span>
-    <div class="form-group mt-3">
-        <span class="info">Book Price : </span><span>50$</span>
-    </div>
-    @csrf
-    <div class="form-group">
-        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Number of Days" value="" min="1" />
-    </div>
-
-    <div class="form-group">
-        <span class="info">Total Price : </span><span>100$</span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Done</button>
-</form>
-
-<div class="popup"></div>
 
 <!-- Book Details Section Started -->
 <section class="book_details mt-3">
@@ -107,7 +86,7 @@
                             </span>
                         </div>
                         @if( $mybook->amount > 0)
-                        <a href="#" class="w-100 rounded-pill lease_btn btn btn-success">Lease</a>
+                        <a href="/borrow/{{ $mybook->id }}" class="w-100 rounded-pill lease_btn btn btn-success">Lease</a>
                         @else
                         <h1 class="text-danger"> So Sorry, But All Copies Are in Lease or Not Available Now, Please Check Later </h1>
                         @endif
