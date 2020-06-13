@@ -1,15 +1,40 @@
 //  Heart started animation and add sound effect when it is acive
-$(".fa-heart").on("click", function () {
-    $(this).toggleClass("heart-active");
-    if ($(this).hasClass("heart-active")) {
-        $(".bell").get(0).currentTime = 0;
-        $(".bell").get(0).play();
-        setTimeout(() => {
-            $(".bell").get(0).pause();
-            $(".bell").get(0).currentTime = 1;
-        }, 600);
-    }
+// $(".fa-heart").on("click", function () {
+//     $(this).toggleClass("heart-active");
+//     if ($(this).hasClass("heart-active")) {
+//         $(".bell").get(0).currentTime = 0;
+//         $(".bell").get(0).play();
+//         setTimeout(() => {
+//             $(".bell").get(0).pause();
+//             $(".bell").get(0).currentTime = 1;
+//         }, 600);
+//     }
+// });
+
+$(".fa-heart").on("click", function (event){
+    // $(this).toggleClass("heart-active");
+    bookid = $(this).data("bookid");
+    $.ajax({
+        method: 'POST',
+        url: urlFav,
+        data: {bookid: bookid , _token:token},
+        success: function(data){
+           
+            if(data.is_fav == 1){
+                $(event.target).removeClass("text-dark").addClass("text-danger");
+
+            }
+            if(data.is_fav == 0){
+                $(event.target).removeClass("text-danger").addClass("text-dark");
+            }
+        }
+        
+    });
+    // .done(function(){
+    //    // do some thing here
+    // })
 });
+
 // Search started animation when click on search icon the form will appeare
 $(".fa-search").click(function () {
     $(".search").show(1000);
@@ -21,27 +46,27 @@ $(".fa-search").click(function () {
     );
 });
 
-// Popup will show and form animtion when click on lease button
-$(".lease_btn").on("click", function () {
-    $(".lease_form").css({
-        top: "20%",
-        transform:
-            "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)",
-        transition: "all 1s",
-    });
-    $(".popup").show();
-});
+// // Popup will show and form animtion when click on lease button
+// $(".lease_btn").on("click", function () {
+//     $(".lease_form").css({
+//         top: "20%",
+//         transform:
+//             "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)",
+//         transition: "all 1s",
+//     });
+//     $(".popup").show();
+// });
 
-// close form when i click on it popup will disappear and form
-$(".close_form").on("click", function () {
-    $(".lease_form").css({
-        top: "-50%",
-        transform:
-            "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)  ",
-        transition: "all .2s",
-    });
-    $(".popup").hide();
-});
+// // close form when i click on it popup will disappear and form
+// $(".close_form").on("click", function () {
+//     $(".lease_form").css({
+//         top: "-50%",
+//         transform:
+//             "rotateY(360deg) rotateY(360deg) rotateY(360deg) rotateY(360deg)  ",
+//         transition: "all .2s",
+//     });
+//     $(".popup").hide();
+// });
 
 // tabs acivation when i click on it will background change by adding class active
 $(".tabs_book > li > a").on("click", function (e) {
@@ -98,6 +123,9 @@ $(window).scroll(function () {
         navbar.removeClass("sticky");
     }
 });
+
+
+
 
 // Aos Started
 

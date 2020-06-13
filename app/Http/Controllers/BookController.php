@@ -7,6 +7,7 @@ use \App\Book;
 use \App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\DB;
 use \App\Category;
+use \App\Comment;
 
 class BookController extends Controller
 {
@@ -19,7 +20,7 @@ class BookController extends Controller
     {
         
         $books= DB::table('books')->paginate(3);
-        $categories= DB::table('categories')->paginate(2);
+        $categories= DB::table('categories')->paginate();
         return view('books.mybooks', ["books"=>$books ,"categories"=>$categories]);
     }
 
@@ -41,7 +42,7 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        //store
+
     }
 
     /**
@@ -54,7 +55,20 @@ class BookController extends Controller
     {
         $mybook = Book::findOrFail($id);
         $categoryName = Category::findOrFail($mybook->cate_id)->name;
-        return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName]);
+        // $booksRelated=Category::
+        $books_specific_category = Book::where('cate_id', $mybook->cate_id)->get();
+
+        // $categoryName = Category::findOrFail($mybook->cate_id)->name;
+        $comments=DB::table('comments')->where('book_id', '=', $id)->get();
+        $commentOwner= DB::table('comments')
+            ->join('users', 'users.id', '=', 'comments.user_id')
+            // ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->where('comments.book_id', '=', $id)
+            ->select('users.name')
+            ->get();
+        // error_log($var);
+        return view('books.book_details', ['mybook'=>$mybook, 'categoryName'=>$categoryName,
+                    'comments'=>$comments, 'commentOwner'=>$commentOwner,'books_specific_category'=>$books_specific_category ]);
 
     }
 
@@ -66,7 +80,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -80,6 +94,8 @@ class BookController extends Controller
     {
         //
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.
@@ -91,4 +107,5 @@ class BookController extends Controller
     {
         //
     }
+     
 }

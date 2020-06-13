@@ -48,7 +48,11 @@
                 />
         </div>
              <div style="margin-left:520px">
+<<<<<<< HEAD
                  {!! Form::submit('Edit',['class'=>'btn btn-dark']); !!}
+=======
+                 {!! Form::submit('update',['class'=>'btn btn-dark']); !!}
+>>>>>>> 73a801d0e656ac9d0a5aca5dbb9e924e62b21b8d
              </div>
 
         {!! Form::close() !!}

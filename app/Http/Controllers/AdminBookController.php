@@ -7,6 +7,7 @@ use \App\Book;
 use \App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\DB;
 use \App\Category;
+use File;
 
 class AdminBookController extends Controller
 {
@@ -52,6 +53,7 @@ class AdminBookController extends Controller
          // first request img then give parameters to store 
          $book->book_img=$request->book_img->store('images','public');        
          
+        //>>> uploading images to right place and saving imgs in db by name or date made by Anis >>>
          // upload img to path , assign the img request to real file, then get name as date upload
          if ($files = $request->file('book_img')) {
              $destinationPath = 'images/'; 
@@ -61,7 +63,7 @@ class AdminBookController extends Controller
          }
  
          $book->save();
- 
+ // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
          
         return redirect('/adminBooks');
          
@@ -108,9 +110,15 @@ class AdminBookController extends Controller
         $book->price=$request->price;
         $book->cate_id=$request->cate_id;
         $book->description=$request->description;
+<<<<<<< HEAD
         // first request img then give parameters to store 
         $book->book_img=$request->book_img->store('images','public');        
         
+=======
+
+        // first request img then give parameters to store 
+        $book->book_img=$request->book_img->store('images','public');        
+>>>>>>> 73a801d0e656ac9d0a5aca5dbb9e924e62b21b8d
         // upload img to path , assign the img request to real file, then get name as date upload
         if ($files = $request->file('book_img')) {
             $destinationPath = 'images/'; 
@@ -129,10 +137,37 @@ class AdminBookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $book=Book::find($id);
+<<<<<<< HEAD
         $book->delete();
+=======
+        $file = $book->book_img;
+        $book->delete();
+        // unlik should happen after book delete
+        $image_path = public_path('images/' .$file);
+
+        if (unlink($image_path)){
+            return redirect('/adminBooks'); //to see if book deleted
+        }else{
+            dd("not deleted"); 
+        }
+
+        //>>>> don't uncomment this >>>>
+        // first try but errors
+        // $image_path = "/images/".$file;  
+        // if(File::exists($image_path)) {
+        //     File::delete($image_path);
+            
+        // }
+        // else
+        // {
+        //     dd($image_path);
+        // }
+
+        //>>>>>>>>>>>>>>>>>>>>>>>.
+>>>>>>> 73a801d0e656ac9d0a5aca5dbb9e924e62b21b8d
         return redirect('/adminBooks');
     }
 }
