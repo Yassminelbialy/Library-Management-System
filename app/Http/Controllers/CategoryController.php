@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories= DB::table('categories');
+       
+        $categories= DB::table('categories')->paginate();
         return view('categories.index', ["categories"=>$categories]);
     }
 
@@ -61,7 +62,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories=Category::find($id);
+        return view ('categories.edit',["categories"=>$categories]);
     }
 
     /**
@@ -73,7 +75,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category=Category::find($id);
+        $category->name=$request->name;
+      
+        
+        $category->save();
+        return redirect('/categories');
     }
 
     /**
@@ -84,6 +91,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $category=Category::find($id);
+        $category->delete();
+        return redirect('/categories');
     }
 }
